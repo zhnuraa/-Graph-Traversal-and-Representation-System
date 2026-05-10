@@ -1,7 +1,16 @@
 public class Vertex {
-    private final int id;
-    public Vertex(int id) { this.id = id; }
-    public int getId() { return id; }
+    private final int id;          // unique identifier
+
+    public Vertex(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     @Override
-    public String toString() { return "Vertex{" + id + "}"; }
+    public String toString() {
+        return "Vertex{" + id + "}";
+    }
 }
