@@ -51,14 +51,7 @@ This project implements an **undirected graph** using an **adjacency list** repr
 - Both BFS and DFS times increase as graph size grows, roughly following `O(V+E)`.  
 - DFS is slightly faster in all tests (about 5–15%). This is due to stack operations being marginally cheaper than queue operations in Java, and DFS often processes fewer vertices per expansion in sparse graphs.
 
-## E. Screenshots
-*(Add your own screenshots here)*
-- Graph structure output (small graph adjacency list)  
-- BFS traversal order  
-- DFS traversal order  
-- Performance comparison table
-
-## F. Reflection
+## E. Reflection
 
 **What I learned:**  
 Implementing BFS and DFS from scratch deepened my understanding of graph traversal. The adjacency list proved efficient for sparse graphs, and using `nanoTime()` gave insight into real‑world performance differences. I also learned how graph structure (density, branching factor) affects traversal order – BFS produces shortest‑hop paths, while DFS can go deep quickly.
@@ -67,6 +60,3 @@ Implementing BFS and DFS from scratch deepened my understanding of graph travers
 - BFS uses a queue → level‑order, guarantees shortest path.  
 - DFS uses a stack → depth‑first, uses less memory on dense graphs (if iterative).  
 - BFS is preferred when the target is close to the source; DFS is better for deep solutions in large state spaces.
-
-**Challenges faced:**  
-Ensuring the graph is connected for meaningful traversal, avoiding printing overhead during performance measurements, and implementing iterative DFS to prevent stack overflow on deep graphs.
