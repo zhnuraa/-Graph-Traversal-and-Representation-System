@@ -39,7 +39,10 @@ public class Graph {
             System.out.println();
         }
     }
-
+    public boolean hasEdge(int from, int to) {
+    if (!adjList.containsKey(from)) return false;
+    return adjList.get(from).contains(to);
+}
     // ---------- BFS and DFS remain the same (they ignore weights) ----------
     // We need helper to get neighbor IDs from edges
     private List<Integer> getNeighbors(int vertex) {
