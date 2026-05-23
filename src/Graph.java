@@ -13,7 +13,7 @@ public class Graph {
     public void addVertex(Vertex v) {
         adjList.putIfAbsent(v.getId(), new ArrayList<>());
     }
-
+    
     // Unweighted edge (default weight = 1) – keeps BFS/DFS working
     public void addEdge(int from, int to) {
         addEdge(from, to, 1);
@@ -118,3 +118,54 @@ public class Graph {
         int[] dist = new int[V];
         boolean[] visited = new boolean[V];
         int[] prev = new int[V];  // to store previous vertex for path reconstruction
+    // Initialize distances: infinity, except start = 0
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        Arrays.fill(prev, -1);
+        dist[indexMap.get(start)] = 0;
+
+        // Main loop: find unvisited vertex with smallest distance
+        for (int i = 0; i < V; i++) {
+            int u = -1;
+            int minDist = Integer.MAX_VALUE;
+            for (int j = 0; j < V; j++) {
+                if (!visited[j] && dist[j] < minDist) {
+                    minDist = dist[j];
+                    u = j;
+                }
+            }
+            if (u == -1) break; // all remaining are unreachable
+
+            visited[u] = true;
+            int vertexId = vertices.get(u);
+
+            // Relax all edges from u
+            for (Edge e : adjList.getOrDefault(vertexId, Collections.emptyList())) {
+                int v = indexMap.get(e.getDestination());
+                int weight = e.getWeight();
+                if (!visited[v] && dist[u] != Integer.MAX_VALUE && dist[u] + weight < dist[v]) {
+                    dist[v] = dist[u] + weight;
+                    prev[v] = u;
+                }
+            }
+        }
+
+        // Print results
+        System.out.println("\nDijkstra's Algorithm from vertex " + start + ":");
+        for (int i = 0; i < V; i++) {
+            int vertexId = vertices.get(i);
+            if (dist[i] == Integer.MAX_VALUE) {
+                System.out.println("  → " + vertexId + " : unreachable");
+            } else {
+                System.out.println("  → " + vertexId + " : distance = " + dist[i]);
+                // Optional: print path
+                System.out.print("      Path: " + vertexId);
+                int p = i;
+                while (prev[p] != -1) {
+                    p = prev[p];
+                    System.out.print(" <- " + vertices.get(p));
+                }
+                System.out.println();
+            }
+        }
+    }
+}
